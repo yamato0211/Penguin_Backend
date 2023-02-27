@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from db.db import get_db
 from sqlalchemy.orm.session import Session
-from service.menus import get_menus, create_menu, update_menu
+from service.menus import get_menus, create_menu, update_menu, delete_menu
 from schemas.menus import Menu, InputMenuData
 
 menu_router = APIRouter()
@@ -37,3 +37,8 @@ async def update_menu_by_details(id: str, payload: InputMenuData, db: Session = 
     )
 
     return menu
+
+@menu_router.delete("/{id}")
+async def delete_menu_by_id(id: str, db: Session = Depends(get_db)):
+    delete_menu(db=db, id=id)
+    return {"message" : "OK!"}

@@ -42,3 +42,12 @@ def update_menu(db: Session, id: str, name: str, target: str, weight: float, isJ
 
     menu = MenuEntity.from_orm(same_menu)
     return menu
+
+def delete_menu(db: Session, id: str):
+    same_menu = db.query(Menu).filter(Menu.id == id).first()
+    if same_menu is None:
+        raise HTTPException(status_code=404, detail="menu not found")
+    db.delete(same_menu)
+    db.commit()
+
+    return
