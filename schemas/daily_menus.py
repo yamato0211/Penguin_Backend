@@ -16,7 +16,7 @@ class DailyMenu(BaseModel):
     weight: float
     count: int
     date: date
-    created_at: datetime
+    create_at: datetime
     menu_id: str
     menu: Menu
 

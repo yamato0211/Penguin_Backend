@@ -28,7 +28,7 @@ class Menu(BaseModel):
     weight: float
     isJoint: bool
     link: str
-    created_at: datetime
+    create_at: datetime
 
     class Config:
         orm_mode = True
