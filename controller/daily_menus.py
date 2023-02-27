@@ -25,6 +25,22 @@ async def create_daily_menus_by_detail(menu_id: str, payload: InputDailyMenu, db
 
     return menu
 
+
+@daily_menu_router.post("/{menu_id}", response_model=list[DailyMenu])
+async def create_many_daily_manus_by_detail(menu_id: str, payloads: list[InputDailyMenu], db: Session = Depends(get_db)):
+    menus = []
+    for payload in payloads:
+        menu = create_daily_menu(
+            db=db,
+            menu_id=menu_id,
+            weight=payload.weight,
+            count=payload.count,
+            date=payload.date
+        )
+        menus.append(menu)
+    
+    return menus
+
 @daily_menu_router.put("/{id}", response_model=DailyMenu)
 async def update_daily_menu_by_detail(id: str, payload: InputDailyMenu, db: Session = Depends(get_db)):
     menu = update_daily_menu(
