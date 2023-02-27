@@ -1,11 +1,12 @@
 from sqlalchemy.orm.session import Session
+from sqlalchemy import desc
 from typing import Optional
 from db.model import Menu
 from schemas.menus import Menu as MenuEntity
 from fastapi import HTTPException
 
 def get_menus(db: Session):
-    menus_orm = db.query(Menu).all()
+    menus_orm = db.query(Menu).order_by(desc(Menu.create_at)).all()
     menus = list(map(MenuEntity.from_orm, menus_orm))
     return menus
 
