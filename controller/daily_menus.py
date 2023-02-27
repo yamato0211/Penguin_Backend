@@ -13,17 +13,17 @@ async def get_daily_menus_by_date(date: date, db: Session = Depends(get_db)):
     menus = get_daily_menus(db=db, date=date)
     return menus
 
-@daily_menu_router.post("/{menu_id}", response_model=DailyMenu)
-async def create_daily_menus_by_detail(menu_id: str, payload: InputDailyMenu, db: Session = Depends(get_db)):
-    menu = create_daily_menu(
-        db=db,
-        menu_id=menu_id,
-        weight=payload.weight,
-        count=payload.count,
-        date=payload.date,
-    )
+# @daily_menu_router.post("/{menu_id}", response_model=DailyMenu)
+# async def create_daily_menus_by_detail(menu_id: str, payload: InputDailyMenu, db: Session = Depends(get_db)):
+#     menu = create_daily_menu(
+#         db=db,
+#         menu_id=menu_id,
+#         weight=payload.weight,
+#         count=payload.count,
+#         date=payload.date,
+#     )
 
-    return menu
+#     return menu
 
 
 @daily_menu_router.post("/{menu_id}", response_model=list[DailyMenu])
