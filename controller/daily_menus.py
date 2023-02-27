@@ -26,13 +26,13 @@ async def get_daily_menus_by_date(date: date, db: Session = Depends(get_db)):
 #     return menu
 
 
-@daily_menu_router.post("/{menu_id}", response_model=list[DailyMenu])
-async def create_many_daily_manus_by_detail(menu_id: str, payloads: list[InputDailyMenu], db: Session = Depends(get_db)):
+@daily_menu_router.post("/", response_model=list[DailyMenu])
+async def create_many_daily_manus_by_detail(payloads: list[InputDailyMenu], db: Session = Depends(get_db)):
     menus = []
     for payload in payloads:
         menu = create_daily_menu(
             db=db,
-            menu_id=menu_id,
+            menu_id=payload.menu_id,
             weight=payload.weight,
             count=payload.count,
             date=payload.date

@@ -7,6 +7,7 @@ class GetDailyMenu(BaseModel):
     date: date
 
 class InputDailyMenu(BaseModel):
+    menu_id: str
     weight: float
     count: int
     date: date
