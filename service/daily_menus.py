@@ -1,5 +1,5 @@
 from sqlalchemy.orm.session import Session
-from sqlalchemy import desc
+from sqlalchemy import asc, desc
 from typing import Optional
 from db.model import DailyMenu
 from schemas.daily_menus import DailyMenu as DailyMenuSchema
@@ -25,7 +25,7 @@ def create_daily_menu(db: Session, menu_id: str, weight: float, count: int, date
     return daily_menu
 
 def get_daily_menus(db: Session, date: date):
-    daily_menus_orm = db.query(DailyMenu).filter(DailyMenu.date == date).order_by(desc(DailyMenu.create_at)).all()
+    daily_menus_orm = db.query(DailyMenu).filter(DailyMenu.date == date).order_by(asc(DailyMenu.create_at)).all()
     daily_menus = list(map(DailyMenuSchema.from_orm, daily_menus_orm))
     return daily_menus
 
