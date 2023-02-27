@@ -7,9 +7,9 @@ from fastapi import HTTPException
 from datetime import date
 
 def create_daily_menu(db: Session, menu_id: str, weight: float, count: int, date: date):
-    same_daily_menu = db.query(DailyMenu).filter(DailyMenu.menu_id == menu_id , DailyMenu.date == date).first()
-    if same_daily_menu is not None:
-        raise HTTPException(status_code=400, detail="this name menu is already existed")
+    # same_daily_menu = db.query(DailyMenu).filter(DailyMenu.menu_id == menu_id , DailyMenu.date == date).first()
+    # if same_daily_menu is not None:
+    #     raise HTTPException(status_code=400, detail="this name menu is already existed")
     daily_menu_orm = DailyMenu(
         weight=weight,
         count=count,
