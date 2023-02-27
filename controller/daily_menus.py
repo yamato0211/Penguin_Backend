@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from db.db import get_db
 from sqlalchemy.orm.session import Session
-from service.daily_menus import get_daily_menus, create_daily_menu, update_daily_menu, delete_daily_menu
+from service.daily_menus import get_daily_menus, create_daily_menu, update_daily_menu, delete_daily_menu, get_all_daily_menus
 from schemas.daily_menus import DailyMenu, InputDailyMenu, GetDailyMenu
 from datetime import date
 
@@ -11,6 +11,11 @@ daily_menu_router = APIRouter()
 @daily_menu_router.get("/", response_model=list[DailyMenu])
 async def get_daily_menus_by_date(date: date, db: Session = Depends(get_db)):
     menus = get_daily_menus(db=db, date=date)
+    return menus
+
+@daily_menu_router.get("/all", response_model=list[DailyMenu])
+async def get_daily_menus_all(db: Session = Depends(get_db)):
+    menus = get_all_daily_menus(db)
     return menus
 
 # @daily_menu_router.post("/{menu_id}", response_model=DailyMenu)

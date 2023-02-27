@@ -29,6 +29,10 @@ def get_daily_menus(db: Session, date: date):
     daily_menus = list(map(DailyMenuSchema.from_orm, daily_menus_orm))
     return daily_menus
 
+def get_all_daily_menus(db: Session):
+    daily_menus_orm = db.query(DailyMenu).order_by(desc(DailyMenu.date)).all()
+    daily_menus = list(map(DailyMenuSchema.from_orm, daily_menus_orm))
+    return daily_menus
 
 def update_daily_menu(db: Session, id: str, weight: float, count: int, date: date):
     same_daily_menu = db.query(DailyMenu).filter(
