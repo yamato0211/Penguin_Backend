@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import date
 from schemas.menus import Menu
+from datetime import datetime
 
 class GetDailyMenu(BaseModel):
     date: date
@@ -15,6 +16,7 @@ class DailyMenu(BaseModel):
     weight: float
     count: int
     date: date
+    created_at: datetime
     menu_id: str
     menu: Menu
 

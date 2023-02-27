@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from datetime import date
+from datetime import datetime
 
 class InputMenuData(BaseModel):
     name: str
@@ -27,6 +28,7 @@ class Menu(BaseModel):
     weight: float
     isJoint: bool
     link: str
+    created_at: datetime
 
     class Config:
         orm_mode = True
