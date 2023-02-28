@@ -5,6 +5,7 @@ from db.model import DailyMenu
 from schemas.daily_menus import DailyMenu as DailyMenuSchema
 from fastapi import HTTPException
 from datetime import date
+import itertools
 
 def create_daily_menu(db: Session, menu_id: str, weight: float, count: int, date: date):
     # same_daily_menu = db.query(DailyMenu).filter(DailyMenu.menu_id == menu_id , DailyMenu.date == date).first()
@@ -32,6 +33,7 @@ def get_daily_menus(db: Session, date: date):
 def get_all_daily_menus(db: Session):
     daily_menus_orm = db.query(DailyMenu).order_by(desc(DailyMenu.date)).all()
     daily_menus = list(map(DailyMenuSchema.from_orm, daily_menus_orm))
+    daily_menus = [list(g) for k, g in itertools.groupby(daily_menus,lambda x: x.date)]
     return daily_menus
 
 def update_daily_menu(db: Session, id: str, weight: float, count: int, date: date):

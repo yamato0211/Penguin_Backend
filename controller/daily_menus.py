@@ -13,7 +13,8 @@ async def get_daily_menus_by_date(date: date, db: Session = Depends(get_db)):
     menus = get_daily_menus(db=db, date=date)
     return menus
 
-@daily_menu_router.get("/all", response_model=list[DailyMenu])
+
+@daily_menu_router.get("/all", response_model=list[list[DailyMenu]])
 async def get_daily_menus_all(db: Session = Depends(get_db)):
     menus = get_all_daily_menus(db)
     return menus
